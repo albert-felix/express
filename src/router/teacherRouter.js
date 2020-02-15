@@ -54,6 +54,22 @@ teacherRouter
   }else{
     res.status(400).send("Invalid id number")
   }
+})
+.delete("/:id",(req,res) => {
+  const {id} = req.params;
+  let requiredTeacherIndex;
+  const requiredTeacher = teachersDB.find((teacher,teacherIndex) => {
+    if (parseInt(id,10) === teacher.id) {
+      requiredTeacherIndex = teacherIndex;
+      return true;
+    }return false;
+  })
+  if (requiredTeacher){
+    teachersDB.splice(requiredTeacherIndex,1);
+    res.status(200).json({Message : "Teacher data deleted"})
+  }else{
+    res.status(404).send("Data not found")
+  }
 });
 
 
