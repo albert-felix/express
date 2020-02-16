@@ -10,14 +10,14 @@ teachersRouter
 
   .post("/", (req, res) => {
     req.body.forEach(teacher => {
-      console.log(teacher)
       if (teacher.id && teacher.firstName) {
         teachersDB.push(teacher);
-        res.status(200).json({ Message: "Teachers data updated successfully" });
       } else {
         res.status(400).send("Data invalid");
       }
     })
+    res.status(200).json({ Message: "Teachers data updated successfully" });
+    
   })
 
   .delete("/", (req, res) => {
@@ -27,10 +27,10 @@ teachersRouter
         if (id === teacher.id) {
           requiredTeacherIndex = teacherIndex;
           teachersDB.splice(requiredTeacherIndex,1);
-          res.status(200).json({Message : "Teachers data deleted"});
         }
+      })
     })
-    })
+    res.status(200).json({Message : "Teachers data deleted"});
   });
 
 module.exports = teachersRouter;
